@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.abigail830.mybatictest.infrastructure.mapper.WishMapper" >
+
+    <resultMap id="WishBaseResultMap" type="com.github.abigail830.mybatictest.infrastructure.entity.WishEntity" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="getAllWishes" resultMap="WishBaseResultMap"  >
+        SELECT
+        id, user_id, description, create_time
+        FROM wish_tbl
+    </select>
+
+    <select id="getWishById" parameterType="java.lang.Integer" resultMap="WishBaseResultMap" >
+        SELECT
+        id, user_id, description, create_time
+        FROM wish_tbl
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insertWish" parameterType="com.github.abigail830.mybatictest.infrastructure.entity.WishEntity" >
+        INSERT INTO
+        wish_tbl
+        (user_id,description)
+        VALUES
+        (#{user_id}, #{description})
+    </insert>
+
+    <update id="updateWishDescription" parameterType="com.github.abigail830.mybatictest.infrastructure.entity.WishEntity" >
+        UPDATE
+        wish_tbl
+        SET
+        description = #{description}
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteWish" parameterType="java.lang.Integer" >
+        DELETE FROM
+        wish_tbl
+        WHERE
+        id =#{id}
+    </delete>
+</mapper>
