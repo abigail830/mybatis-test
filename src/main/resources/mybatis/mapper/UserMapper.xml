@@ -32,16 +32,16 @@
         user_tbl
         (user_name,gender,avatar_url)
         VALUES
-        (#{user_name}, #{gender}, #{avatar_url})
+        (#{userName}, #{gender}, #{avatarUrl})
     </insert>
 
     <update id="updateUser" parameterType="com.github.abigail830.mybatictest.infrastructure.entity.UserEntity" >
         UPDATE
         user_tbl
         SET
-        <if test="avatar_url != null">avatar_url = #{avatar_url},</if>
+        <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
         <if test="gender != null">gender = #{gender},</if>
-        user_name = #{user_name}
+        user_name = #{userName}
         WHERE
         id = #{id}
     </update>

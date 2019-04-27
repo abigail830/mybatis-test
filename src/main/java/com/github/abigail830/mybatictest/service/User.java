@@ -1,5 +1,6 @@
 package com.github.abigail830.mybatictest.service;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 public class User {
 
     int id;
@@ -18,6 +20,12 @@ public class User {
 
     public User(int id, String userName, String gender, String avatarUrl) {
         this.id = id;
+        this.userName = userName;
+        this.gender = gender;
+        this.avatarUrl = avatarUrl;
+    }
+
+    public User(String userName, String gender, String avatarUrl) {
         this.userName = userName;
         this.gender = gender;
         this.avatarUrl = avatarUrl;

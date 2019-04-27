@@ -1,0 +1,5 @@
+<dataset>
+    <user_tbl id="1" user_name="user1" gender="F" avatar_url="url1" ></user_tbl>
+    <user_tbl id="2" user_name="user2" gender="M"></user_tbl>
+    <user_tbl id="3" user_name="user3" gender="M" avatar_url="url3"></user_tbl>
+</dataset>
