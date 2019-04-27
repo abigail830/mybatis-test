@@ -24,14 +24,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This is the integration test from service layer + infrastructure + H2
+ * This is the integration test from service->infrastructure->H2
  * <p>
  * Given it would start up spring for test, so it would takes longer time,
  * we always suggest to have more unit test then integration test,
  * so the CI could run quicker
+ *
+ * Said if you already have integration test from controller layer,
+ * then maybe u don't need this test, and vice versa.
+ *
  */
-
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
