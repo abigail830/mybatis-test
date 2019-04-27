@@ -10,11 +10,18 @@ import java.sql.SQLClientInfoException;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-
+/**
+ * This is the unit test for UserService
+ * <p>
+ * It had mock up the userInterface to pretence what would come back from infrastructure
+ * So when service layer have more and more complex biz logic,
+ * we could also use this way to only test those biz logic
+ * <p>
+ * It does not required to startup spring, so it would run quicker
+ */
 class UserServiceTest {
 
     @Mock

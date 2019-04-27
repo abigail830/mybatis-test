@@ -23,6 +23,15 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This is the integration test from service layer + infrastructure + H2
+ * <p>
+ * Given it would start up spring for test, so it would takes longer time,
+ * we always suggest to have more unit test then integration test,
+ * so the CI could run quicker
+ */
+
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
@@ -112,7 +121,7 @@ class UserServiceIntegrationTest {
 
     @Test
     void should_delete_user_if_not_exist() {
-         Assertions.assertThrows(ResponseStatusException.class,()->{
+        Assertions.assertThrows(ResponseStatusException.class,()->{
             userService.deleteUser(10);
         });
     }
