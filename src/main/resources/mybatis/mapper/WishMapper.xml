@@ -29,7 +29,7 @@
         wish_tbl
         (user_id,description)
         VALUES
-        (#{user_id}, #{description})
+        (#{userId}, #{description})
     </insert>
 
     <update id="updateWishDescription" parameterType="com.github.abigail830.mybatictest.infrastructure.entity.WishEntity" >
@@ -46,5 +46,12 @@
         wish_tbl
         WHERE
         id =#{id}
+    </delete>
+
+    <delete id="deleteWishForUser" parameterType="java.lang.Integer">
+        DELETE FROM
+        wish_tbl
+        WHERE
+        user_id =#{userId}
     </delete>
 </mapper>

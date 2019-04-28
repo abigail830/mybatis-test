@@ -72,8 +72,15 @@ public class UserInfrastructureImpl implements UserInfrastructure {
     public void insertWish(Wish wish, Integer userId) throws SQLIntegrityConstraintViolationException {
         final WishEntity wishEntity = WishEntity.fromNewWish(wish, userId);
         final Integer result = wishMapper.insertWish(wishEntity);
-
         if(result!=SUCCESS){
+            throw new SQLIntegrityConstraintViolationException();
+        }
+    }
+
+    @Override
+    public void deleteAllWishesForUser(Integer userId) throws SQLIntegrityConstraintViolationException {
+        final Integer result = wishMapper.deleteWishForUser(userId);
+        if (result != SUCCESS) {
             throw new SQLIntegrityConstraintViolationException();
         }
     }

@@ -18,4 +18,6 @@ public interface WishMapper {
     Integer updateWishDescription(WishEntity wishEntity);
 
     Integer deleteWish(Integer id);
+
+    Integer deleteWishForUser(Integer userId);
 }

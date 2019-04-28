@@ -1,6 +1,6 @@
-CREATE TABLE wish_tbl (
+create TABLE wish_tbl (
   id int NOT NULL AUTO_INCREMENT,
-  user_id varchar(100) NOT NULL,
+  user_id int NOT NULL,
   description varchar(255) DEFAULT NULL,
   create_time TIMESTAMP NOT NULL,
   PRIMARY KEY (id),

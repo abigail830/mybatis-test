@@ -22,4 +22,6 @@ public interface UserInfrastructure {
     List<Wish> getAllWishesByUser(Integer userId);
 
     void insertWish(Wish wish, Integer userId) throws SQLIntegrityConstraintViolationException;
+
+    void deleteAllWishesForUser(Integer userId) throws SQLIntegrityConstraintViolationException;
 }

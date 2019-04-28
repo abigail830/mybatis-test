@@ -47,6 +47,7 @@ public class UserService {
 
     public void deleteUser(Integer id){
         try {
+            userInfrastructure.deleteAllWishesForUser(id);
             userInfrastructure.deleteUser(id);
         } catch (SQLIntegrityConstraintViolationException e) {
             log.warn("Fail to delete user with id {}", id);

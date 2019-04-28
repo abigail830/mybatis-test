@@ -58,16 +58,16 @@ public class UserController {
     }
 
     @GetMapping("/{id}/wishes")
-    public List<WishDTO> getAllWishesForUser(@PathVariable Integer userId) {
-        return userService.getAllWishesByUser(userId).stream()
+    public List<WishDTO> getAllWishesForUser(@PathVariable Integer id) {
+        return userService.getAllWishesByUser(id).stream()
                 .map(WishDTO::fromWish)
                 .collect(Collectors.toList());
     }
 
     @PostMapping("/{id}/wishes")
-    public void insertWishForUser(@PathVariable Integer userId,
+    public void insertWishForUser(@PathVariable Integer id,
                                   @RequestBody WishDTO wishDTO) {
         final Wish wish = wishDTO.toWish();
-        userService.insertWishForUser(userId, wish);
+        userService.insertWishForUser(id, wish);
     }
 }
