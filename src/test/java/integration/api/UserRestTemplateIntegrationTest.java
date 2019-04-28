@@ -1,8 +1,9 @@
-package integration;
+package integration.api;
 
 import com.github.abigail830.mybatictest.domain.model.User;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import integration.IntegrationTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserRestTemplateIntegrationTest extends IntegrationTestBase {
     TestRestTemplate testRestTemplate;
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
     void should_get_all_users() {
         List<User> userList = new ArrayList<>();
         final ResponseEntity<? extends List> result = testRestTemplate
@@ -40,7 +41,7 @@ public class UserRestTemplateIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
     void should_get_user_by_id() {
 
         //when

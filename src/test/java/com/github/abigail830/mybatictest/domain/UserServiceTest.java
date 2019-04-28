@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.SQLClientInfoException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -78,7 +78,7 @@ class UserServiceTest {
     }
 
     @Test
-    void should_update_user() throws SQLClientInfoException {
+    void should_update_user() throws SQLIntegrityConstraintViolationException {
         //given
         UserService userService = new UserService(userInfrastructure);
         final User user2 = new User(2, "user2", null, "url2");
@@ -90,11 +90,11 @@ class UserServiceTest {
     }
 
     @Test
-    void should_throw_exception_when_update_user_not_exist() throws SQLClientInfoException {
+    void should_throw_exception_when_update_user_not_exist() throws SQLIntegrityConstraintViolationException {
         //given
         UserService userService = new UserService(userInfrastructure);
         final User user2 = new User(2, "user2", null, "url2");
-        doThrow(new SQLClientInfoException()).when(userInfrastructure).updateUser(user2);
+        doThrow(new SQLIntegrityConstraintViolationException()).when(userInfrastructure).updateUser(user2);
 
         Assertions.assertThrows(ResponseStatusException.class,()->{
             userService.updateUser(user2);
@@ -104,7 +104,7 @@ class UserServiceTest {
 
 
     @Test
-    void should_delete_user_exist() throws SQLClientInfoException {
+    void should_delete_user_exist() throws SQLIntegrityConstraintViolationException {
         //when
         UserService userService = new UserService(userInfrastructure);
         userService.deleteUser(1);
@@ -113,10 +113,10 @@ class UserServiceTest {
     }
 
     @Test
-    void should_throw_exception_when_delete_user__not_exist() throws SQLClientInfoException {
+    void should_throw_exception_when_delete_user__not_exist() throws SQLIntegrityConstraintViolationException {
 
         UserService userService = new UserService(userInfrastructure);
-        doThrow(new SQLClientInfoException()).when(userInfrastructure).deleteUser(1);
+        doThrow(new SQLIntegrityConstraintViolationException()).when(userInfrastructure).deleteUser(1);
 
         Assertions.assertThrows(ResponseStatusException.class,()->{
             userService.deleteUser(1);

@@ -1,7 +1,8 @@
-package integration;
+package integration.api;
 
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import integration.IntegrationTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ class UserMockMvcIntegrationTest extends IntegrationTestBase {
     MockMvc mockMvc;
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
     void getAllUsers() throws Exception {
         //when
         final MvcResult mvcResult = mockMvc.perform(get("/users")).andReturn();

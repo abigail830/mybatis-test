@@ -1,11 +1,13 @@
-package integration;
+package integration.domain;
 
 import com.github.abigail830.mybatictest.domain.UserService;
 import com.github.abigail830.mybatictest.domain.model.User;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import integration.IntegrationTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
 
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
     void should_get_all_users() {
         //when
         final List<User> allUsers = userService.getAllUsers();
@@ -49,7 +51,8 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.DELETE)
     void should_get_user_by_id() {
         //when
         final User user1 = userService.getUserById(1);
@@ -60,10 +63,11 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @ExpectedDatabase(value = "/dbunit/UserServiceTest_insertUser_expect.xml",
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @ExpectedDatabase(value = "/dbunit/UserTest_insertUser_expect.xml",
             table = "user_tbl",
             assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @DatabaseTearDown(value = "/dbunit/UserTest_insertUser_expect.xml", type = DatabaseOperation.DELETE)
     void should_add_user() {
         //given
         final User user3 = new User("user3", "M", "url3");
@@ -74,10 +78,11 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @ExpectedDatabase(value = "/dbunit/UserServiceTest_updateUser_expect.xml",
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @ExpectedDatabase(value = "/dbunit/UserTest_updateUser_expect.xml",
             table = "user_tbl",
             assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @DatabaseTearDown(value = "/dbunit/UserTest_updateUser_expect.xml", type = DatabaseOperation.DELETE)
     void should_update_user_if_exist() {
         //given
         final User user2 = new User(2, "user2", null, "url2");
@@ -97,10 +102,11 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @ExpectedDatabase(value = "/dbunit/UserServiceTest_deleteUser_expect.xml",
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @ExpectedDatabase(value = "/dbunit/UserTest_deleteUser_expect.xml",
             table = "user_tbl",
             assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @DatabaseTearDown(value = "/dbunit/UserTest_deleteUser_expect.xml", type = DatabaseOperation.DELETE)
     void should_delete_user_if_exist() {
         //when
         userService.deleteUser(1);

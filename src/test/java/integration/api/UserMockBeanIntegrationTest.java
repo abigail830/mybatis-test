@@ -1,7 +1,8 @@
-package integration;
+package integration.api;
 
 import com.github.abigail830.mybatictest.domain.UserService;
 import com.github.abigail830.mybatictest.domain.model.User;
+import integration.IntegrationTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

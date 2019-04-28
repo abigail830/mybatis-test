@@ -8,15 +8,13 @@ import java.util.List;
 @Mapper
 public interface WishMapper {
 
-    List<WishEntity> getAllWishes();
+    List<WishEntity> getAllWishesByUser(Integer userId);
 
     WishEntity getWishById(Integer id);
 
-//    WishEntity getWishByUserId(Integer userId);
-
     void insertWish(WishEntity wishEntity);
 
-    void updateWishDescription(WishEntity wishEntity);
+    Integer updateWishDescription(WishEntity wishEntity);
 
-    void deleteWish(Integer id);
+    Integer deleteWish(Integer id);
 }

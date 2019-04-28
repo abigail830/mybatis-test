@@ -1,0 +1,8 @@
+<dataset>
+    <user_tbl id="1" user_name="user1" gender="F" avatar_url="url1"></user_tbl>
+    <user_tbl id="2" user_name="user2" gender="M"></user_tbl>
+
+    <wish_tbl id="1" user_id="1" description="This is wish1" create_time="2018-12-12 12:12:12.112233445"></wish_tbl>
+    <wish_tbl id="2" user_id="1" description="This is wish2" create_time="2018-12-13 12:12:12.112233445"></wish_tbl>
+    <wish_tbl id="3" user_id="2" description="This is wish3" create_time="2019-01-11 12:12:12.112233445"></wish_tbl>
+</dataset>

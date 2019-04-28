@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLClientInfoException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserInfrastructureImpl implements UserInfrastructure {
 
-    public static final int SUCCESS = 1;
+    private static final int SUCCESS = 1;
     private UserMapper userMapper;
 
     @Autowired
@@ -41,20 +41,20 @@ public class UserInfrastructureImpl implements UserInfrastructure {
     }
 
     @Override
-    public void updateUser(User user) throws SQLClientInfoException{
+    public void updateUser(User user) throws SQLIntegrityConstraintViolationException {
         final UserEntity userEntity = UserEntity.fromExistUser(user);
         final Integer result = userMapper.updateUser(userEntity);
         if(result!= SUCCESS){
-            throw new SQLClientInfoException();
+            throw new SQLIntegrityConstraintViolationException();
         }
     }
 
     @Override
-    public void deleteUser(Integer id) throws SQLClientInfoException {
+    public void deleteUser(Integer id) throws SQLIntegrityConstraintViolationException {
 
         final Integer result = userMapper.deleteUser(id);
         if(result!=SUCCESS){
-            throw new SQLClientInfoException();
+            throw new SQLIntegrityConstraintViolationException();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.github.abigail830.mybatictest.domain.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.sql.Timestamp;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 public class Wish {
 
     int id;

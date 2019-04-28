@@ -10,10 +10,11 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     </resultMap>
 
-    <select id="getAllWishes" resultMap="WishBaseResultMap"  >
+    <select id="getAllWishesByUser" parameterType="java.lang.Integer" resultMap="WishBaseResultMap">
         SELECT
         id, user_id, description, create_time
         FROM wish_tbl
+        WHERE user_id = #{userId}
     </select>
 
     <select id="getWishById" parameterType="java.lang.Integer" resultMap="WishBaseResultMap" >

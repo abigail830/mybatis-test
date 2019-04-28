@@ -1,8 +1,9 @@
-package integration;
+package integration.api;
 
 import com.github.abigail830.mybatictest.api.dto.SimpleUserResponseDTO;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import integration.IntegrationTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 public class UserRestAssuredIntegrationTest extends IntegrationTestBase {
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
     void should_get_all_users() {
         when()
                 .get("/users")
@@ -35,7 +36,7 @@ public class UserRestAssuredIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
     void should_get_user_by_id() {
 
         final SimpleUserResponseDTO result = when()

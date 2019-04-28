@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.SQLClientInfoException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -38,7 +38,7 @@ public class UserService {
     public void updateUser(User user){
         try {
             userInfrastructure.updateUser(user);
-        } catch (SQLClientInfoException e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
             log.warn("Fail to update user {}", user);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     ErrorCode.FAIL_TO_UPDATE.name());
@@ -48,7 +48,7 @@ public class UserService {
     public void deleteUser(Integer id){
         try {
             userInfrastructure.deleteUser(id);
-        } catch (SQLClientInfoException e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
             log.warn("Fail to delete user with id {}", id);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     ErrorCode.FAIL_TO_DELETE.name());
