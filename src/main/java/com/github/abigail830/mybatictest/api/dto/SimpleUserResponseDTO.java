@@ -1,6 +1,6 @@
 package com.github.abigail830.mybatictest.api.dto;
 
-import com.github.abigail830.mybatictest.service.User;
+import com.github.abigail830.mybatictest.domain.model.User;
 import lombok.*;
 
 @Getter

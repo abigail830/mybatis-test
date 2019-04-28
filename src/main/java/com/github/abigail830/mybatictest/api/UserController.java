@@ -2,8 +2,8 @@ package com.github.abigail830.mybatictest.api;
 
 import com.github.abigail830.mybatictest.api.dto.SimpleUserResponseDTO;
 import com.github.abigail830.mybatictest.api.dto.UserRequestDTO;
-import com.github.abigail830.mybatictest.service.User;
-import com.github.abigail830.mybatictest.service.UserService;
+import com.github.abigail830.mybatictest.domain.UserService;
+import com.github.abigail830.mybatictest.domain.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,6 @@
-package com.github.abigail830.mybatictest.service;
+package com.github.abigail830.mybatictest.domain;
+
+import com.github.abigail830.mybatictest.domain.model.Wish;
 
 import java.util.List;
 

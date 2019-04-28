@@ -1,5 +1,6 @@
-package com.github.abigail830.mybatictest.service;
+package com.github.abigail830.mybatictest.domain;
 
+import com.github.abigail830.mybatictest.domain.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * This is the unit test for UserService
  * <p>
  * It had mock up the userInterface to pretence what would come back from infrastructure
- * So when service layer have more and more complex biz logic,
+ * So when domain layer have more and more complex biz logic,
  * we could also use this way to only test those biz logic
  * <p>
  * It does not required to startup spring, so it would run quicker

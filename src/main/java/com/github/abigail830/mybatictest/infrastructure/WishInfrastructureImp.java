@@ -1,9 +1,9 @@
 package com.github.abigail830.mybatictest.infrastructure;
 
+import com.github.abigail830.mybatictest.domain.WishInfrastructure;
+import com.github.abigail830.mybatictest.domain.model.Wish;
 import com.github.abigail830.mybatictest.infrastructure.entity.WishEntity;
 import com.github.abigail830.mybatictest.infrastructure.mapper.WishMapper;
-import com.github.abigail830.mybatictest.service.Wish;
-import com.github.abigail830.mybatictest.service.WishInfrastructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,51 +1,27 @@
-package com.github.abigail830.mybatictest.integration;
+package integration;
 
 import com.github.abigail830.mybatictest.api.dto.SimpleUserResponseDTO;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.hasItems;
 
 /**
- * This is the integration test from controller->service->infrastructure->H2
+ * This is the integration test from controller->domain->infrastructure->H2
+ *
+ * The annotation for startup springboot had been moved to IntegrationTestBase
  * <p>
  * It is base on rest-assured lib which is not spring depends
  * <p>
  * We could also use other ways to do similar stuff, such as MockMvc or TestRestTemplate
  */
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class,
-        MockitoTestExecutionListener.class})
-class UserControllerIntegrationTest {
 
-    @LocalServerPort
-    public int port;
-
-    @BeforeEach
-    public void setUp() {
-        RestAssured.port = port;
-    }
+public class UserControllerIntegrationTest extends IntegrationTestBase {
 
     @Test
     @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)

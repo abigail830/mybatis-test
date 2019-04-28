@@ -1,9 +1,9 @@
 package com.github.abigail830.mybatictest.infrastructure;
 
+import com.github.abigail830.mybatictest.domain.UserInfrastructure;
+import com.github.abigail830.mybatictest.domain.model.User;
 import com.github.abigail830.mybatictest.infrastructure.entity.UserEntity;
 import com.github.abigail830.mybatictest.infrastructure.mapper.UserMapper;
-import com.github.abigail830.mybatictest.service.User;
-import com.github.abigail830.mybatictest.service.UserInfrastructure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

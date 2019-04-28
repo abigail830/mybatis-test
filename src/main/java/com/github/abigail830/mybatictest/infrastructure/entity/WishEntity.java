@@ -1,7 +1,6 @@
 package com.github.abigail830.mybatictest.infrastructure.entity;
 
-import com.github.abigail830.mybatictest.service.User;
-import com.github.abigail830.mybatictest.service.Wish;
+import com.github.abigail830.mybatictest.domain.model.Wish;
 import lombok.*;
 
 import java.sql.Timestamp;

@@ -1,5 +1,7 @@
-package com.github.abigail830.mybatictest.service;
+package com.github.abigail830.mybatictest.domain;
 
+import com.github.abigail830.mybatictest.domain.exception.ErrorCode;
+import com.github.abigail830.mybatictest.domain.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

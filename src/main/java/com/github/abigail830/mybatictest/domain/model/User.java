@@ -1,4 +1,4 @@
-package com.github.abigail830.mybatictest.service;
+package com.github.abigail830.mybatictest.domain.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.github.abigail830.mybatictest.service;
+package com.github.abigail830.mybatictest.domain.exception;
 
 public enum ErrorCode {
 

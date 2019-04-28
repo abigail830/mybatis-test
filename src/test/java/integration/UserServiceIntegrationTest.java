@@ -1,30 +1,21 @@
-package com.github.abigail830.mybatictest.integration;
+package integration;
 
-import com.github.abigail830.mybatictest.service.User;
-import com.github.abigail830.mybatictest.service.UserService;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.abigail830.mybatictest.domain.UserService;
+import com.github.abigail830.mybatictest.domain.model.User;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * This is the integration test from service->infrastructure->H2
+ * This is the integration test from domain->infrastructure->H2
  * <p>
  * Given it would start up spring for test, so it would takes longer time,
  * we always suggest to have more unit test then integration test,
@@ -34,14 +25,7 @@ import java.util.List;
  * then maybe u don't need this test, and vice versa.
  *
  */
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class,
-        MockitoTestExecutionListener.class})
-class UserServiceIntegrationTest {
+class UserServiceIntegrationTest extends IntegrationTestBase {
 
     @Autowired
     UserService userService;
@@ -104,7 +88,7 @@ class UserServiceIntegrationTest {
     void should_throw_exception_when_update_user_not_exit() {
         final User notExistUser = new User(10, "user2", null, "url2");
 
-        Assertions.assertThrows(ResponseStatusException.class,()->{
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
             userService.updateUser(notExistUser);
         });
     }
@@ -123,7 +107,7 @@ class UserServiceIntegrationTest {
 
     @Test
     void should_delete_user_if_not_exist() {
-        Assertions.assertThrows(ResponseStatusException.class,()->{
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
             userService.deleteUser(10);
         });
     }
