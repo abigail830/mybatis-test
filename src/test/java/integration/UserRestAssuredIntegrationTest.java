@@ -15,13 +15,12 @@ import static org.hamcrest.CoreMatchers.hasItems;
  * This is the integration test from controller->domain->infrastructure->H2
  *
  * The annotation for startup springboot had been moved to IntegrationTestBase
- * <p>
- * It is base on rest-assured lib which is not spring depends
- * <p>
- * We could also use other ways to do similar stuff, such as MockMvc or TestRestTemplate
+ *
+ * It is base on rest-assured lib which is not spring depends, We could also use other ways to do similar stuff,
+ * such as MockMvc way in UserMockMvcIntegrationTest.java
  */
 
-public class UserControllerIntegrationTest extends IntegrationTestBase {
+public class UserRestAssuredIntegrationTest extends IntegrationTestBase {
 
     @Test
     @DatabaseSetup(value = "/dbunit/UserServiceTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)

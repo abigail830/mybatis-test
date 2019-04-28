@@ -24,6 +24,9 @@ import java.util.List;
  * Said if you already have integration test from controller layer,
  * then maybe u don't need this test, and vice versa.
  *
+ * Or, if controller layer really only call service for action without any logic,
+ * then we could just start test from service layer
+ *
  */
 class UserServiceIntegrationTest extends IntegrationTestBase {
 

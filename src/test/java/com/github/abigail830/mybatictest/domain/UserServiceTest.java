@@ -23,6 +23,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * <p>
  * It does not required to startup spring, so it would run quicker
  */
+//@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
     @Mock

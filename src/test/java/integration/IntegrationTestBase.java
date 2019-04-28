@@ -14,6 +14,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+
+/**
+ * Given it was in integration folder instead of com.github.abigail830.mybatistest,
+ * When specify @SpringBootTest, we must specify the MybaticTestApplication.class
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = MybaticTestApplication.class)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,

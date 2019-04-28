@@ -2,6 +2,7 @@ package com.github.abigail830.mybatictest.domain.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @ToString
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
 public class User {
 
     int id;
