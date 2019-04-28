@@ -2,8 +2,11 @@ package com.github.abigail830.mybatictest.infrastructure;
 
 import com.github.abigail830.mybatictest.domain.UserInfrastructure;
 import com.github.abigail830.mybatictest.domain.model.User;
+import com.github.abigail830.mybatictest.domain.model.Wish;
 import com.github.abigail830.mybatictest.infrastructure.entity.UserEntity;
+import com.github.abigail830.mybatictest.infrastructure.entity.WishEntity;
 import com.github.abigail830.mybatictest.infrastructure.mapper.UserMapper;
+import com.github.abigail830.mybatictest.infrastructure.mapper.WishMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,10 +21,12 @@ public class UserInfrastructureImpl implements UserInfrastructure {
 
     private static final int SUCCESS = 1;
     private UserMapper userMapper;
+    private WishMapper wishMapper;
 
     @Autowired
-    public UserInfrastructureImpl(UserMapper userMapper) {
+    public UserInfrastructureImpl(UserMapper userMapper, WishMapper wishMapper) {
         this.userMapper = userMapper;
+        this.wishMapper = wishMapper;
     }
 
     @Override
@@ -53,6 +58,21 @@ public class UserInfrastructureImpl implements UserInfrastructure {
     public void deleteUser(Integer id) throws SQLIntegrityConstraintViolationException {
 
         final Integer result = userMapper.deleteUser(id);
+        if (result != SUCCESS) {
+            throw new SQLIntegrityConstraintViolationException();
+        }
+    }
+
+    @Override
+    public List<Wish> getAllWishesByUser(Integer userId) {
+        return wishMapper.getAllWishesByUser(userId).stream().map(WishEntity::toWish).collect(Collectors.toList());
+    }
+
+    @Override
+    public void insertWish(Wish wish, Integer userId) throws SQLIntegrityConstraintViolationException {
+        final WishEntity wishEntity = WishEntity.fromNewWish(wish, userId);
+        final Integer result = wishMapper.insertWish(wishEntity);
+
         if(result!=SUCCESS){
             throw new SQLIntegrityConstraintViolationException();
         }

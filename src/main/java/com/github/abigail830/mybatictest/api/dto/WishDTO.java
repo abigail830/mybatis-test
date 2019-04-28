@@ -20,4 +20,8 @@ public class WishDTO {
         return new WishDTO(wish.getId(), wish.getCreateTime(), wish.getDescription());
     }
 
+    public Wish toWish() {
+        return new Wish(this.description);
+    }
+
 }

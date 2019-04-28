@@ -2,6 +2,7 @@ package integration.domain;
 
 import com.github.abigail830.mybatictest.domain.UserService;
 import com.github.abigail830.mybatictest.domain.model.User;
+import com.github.abigail830.mybatictest.domain.model.Wish;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
@@ -119,5 +120,23 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
         Assertions.assertThrows(ResponseStatusException.class, () -> {
             userService.deleteUser(10);
         });
+    }
+
+    @Test
+    @DatabaseSetup(value = "/dbunit/WishTest_AllWishesByUser.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = "/dbunit/WishTest_AllWishesByUser.xml", type = DatabaseOperation.DELETE)
+    void should_gete_all_wishes_by_user() {
+        final List<Wish> allWishesByUser = userService.getAllWishesByUser(1);
+        Assertions.assertEquals(2, allWishesByUser.size());
+
+        Assertions.assertEquals(1,
+                allWishesByUser.stream().filter(wish -> wish.getId() == 1)
+                        .filter(wish -> wish.getDescription().equals("This is wish1"))
+                        .count());
+
+        Assertions.assertEquals(1,
+                allWishesByUser.stream().filter(wish -> wish.getId() == 2)
+                        .filter(wish -> wish.getDescription().equals("This is wish2"))
+                        .count());
     }
 }
