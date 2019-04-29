@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -29,7 +30,13 @@ public class UserService {
 
 
     public User getUserById(Integer id){
-        return userInfrastructure.getUserById(id);
+        final Optional<User> user = userInfrastructure.getUserById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            log.warn("Fail to query user {}", id);
+            throw new CustomizeException(HttpStatus.NOT_FOUND);
+        }
     }
 
     public void addUser(User user){
@@ -37,22 +44,20 @@ public class UserService {
     }
 
     public void updateUser(User user){
-        try {
-            userInfrastructure.updateUser(user);
-        } catch (SQLIntegrityConstraintViolationException e) {
+        final Integer result = userInfrastructure.updateUser(user);
+
+        if (!userInfrastructure.isSuccess(result)) {
             log.warn("Fail to update user {}", user);
-            throw new CustomizeException(HttpStatus.BAD_REQUEST, ErrorCode.FAIL_TO_UPDATE_USER.name(), e);
+            throw new CustomizeException(HttpStatus.BAD_REQUEST, ErrorCode.FAIL_TO_UPDATE_USER.name());
         }
     }
 
     public void deleteUser(Integer id){
-        try {
-            userInfrastructure.deleteAllWishesForUser(id);
-            userInfrastructure.deleteUser(id);
-        } catch (SQLIntegrityConstraintViolationException e) {
-            log.warn("Fail to delete user with id {}", id);
-            throw new CustomizeException(HttpStatus.BAD_REQUEST, ErrorCode.FAIL_TO_DELETE_USER.name(), e);
+        final Integer result = userInfrastructure.deleteUser(id);
+        if (!userInfrastructure.isSuccess(result)) {
+            log.warn("User {} not exist, so nth to delete", id);
         }
+
     }
 
     public List<Wish> getAllWishesByUser(Integer userId) {

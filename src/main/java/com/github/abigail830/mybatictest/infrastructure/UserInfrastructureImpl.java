@@ -13,13 +13,14 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
 public class UserInfrastructureImpl implements UserInfrastructure {
 
-    private static final int SUCCESS = 1;
+    private static final int ONE_ROW = 1;
     private UserMapper userMapper;
     private WishMapper wishMapper;
 
@@ -35,8 +36,9 @@ public class UserInfrastructureImpl implements UserInfrastructure {
     }
 
     @Override
-    public User getUserById(Integer id) {
-        return userMapper.getUserById(id).toUser();
+    public Optional<User> getUserById(Integer id) {
+        final Optional<UserEntity> userById = userMapper.getUserById(id);
+        return userById.map(UserEntity::toUser);
     }
 
     @Override
@@ -46,21 +48,21 @@ public class UserInfrastructureImpl implements UserInfrastructure {
     }
 
     @Override
-    public void updateUser(User user) throws SQLIntegrityConstraintViolationException {
+    public Integer updateUser(User user) {
         final UserEntity userEntity = UserEntity.fromExistUser(user);
-        final Integer result = userMapper.updateUser(userEntity);
-        if(result!= SUCCESS){
-            throw new SQLIntegrityConstraintViolationException();
-        }
+        return userMapper.updateUser(userEntity);
+
     }
 
     @Override
-    public void deleteUser(Integer id) throws SQLIntegrityConstraintViolationException {
+    public Integer deleteUser(Integer id) {
+        deleteAllWishesForUser(id);
+        return deleteUserFromUserTblOnly(userMapper.deleteUser(id));
+    }
 
-        final Integer result = userMapper.deleteUser(id);
-        if (result != SUCCESS) {
-            throw new SQLIntegrityConstraintViolationException();
-        }
+    private Integer deleteUserFromUserTblOnly(Integer id) {
+        return userMapper.deleteUser(id);
+
     }
 
     @Override
@@ -72,16 +74,19 @@ public class UserInfrastructureImpl implements UserInfrastructure {
     public void insertWish(Wish wish, Integer userId) throws SQLIntegrityConstraintViolationException {
         final WishEntity wishEntity = WishEntity.fromNewWish(wish, userId);
         final Integer result = wishMapper.insertWish(wishEntity);
-        if(result!=SUCCESS){
+        if (result != ONE_ROW) {
             throw new SQLIntegrityConstraintViolationException();
         }
     }
 
     @Override
-    public void deleteAllWishesForUser(Integer userId) throws SQLIntegrityConstraintViolationException {
-        final Integer result = wishMapper.deleteWishForUser(userId);
-        if (result != SUCCESS) {
-            throw new SQLIntegrityConstraintViolationException();
-        }
+    public Integer deleteAllWishesForUser(Integer userId) {
+        return wishMapper.deleteWishForUser(userId);
+
+    }
+
+    @Override
+    public boolean isSuccess(Integer updatedRowCount) {
+        return updatedRowCount >= ONE_ROW;
     }
 }

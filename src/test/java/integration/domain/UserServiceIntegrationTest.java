@@ -1,6 +1,8 @@
 package integration.domain;
 
 import com.github.abigail830.mybatictest.domain.UserService;
+import com.github.abigail830.mybatictest.domain.WishService;
+import com.github.abigail830.mybatictest.domain.exception.CustomizeException;
 import com.github.abigail830.mybatictest.domain.model.User;
 import com.github.abigail830.mybatictest.domain.model.Wish;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
@@ -35,6 +37,9 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    WishService wishService;
 
 
     @Test
@@ -103,24 +108,23 @@ class UserServiceIntegrationTest extends IntegrationTestBase {
     }
 
     @Test
-    @DatabaseSetup(value = "/dbunit/UserTest_allUsers.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @ExpectedDatabase(value = "/dbunit/UserTest_deleteUser_expect.xml",
-            table = "user_tbl",
-            assertionMode = DatabaseAssertionMode.NON_STRICT)
-    @DatabaseTearDown(value = "/dbunit/UserTest_deleteUser_expect.xml", type = DatabaseOperation.DELETE)
+    @DatabaseSetup(value = "/dbunit/WishTest_AllWishesByUser.xml", type = DatabaseOperation.CLEAN_INSERT)
+//    @ExpectedDatabase(value = "/dbunit/UserTest_deleteUser_expect.xml",
+//            table = "user_tbl",
+//            assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @DatabaseTearDown(value = "/dbunit/WishTest_AllWishesByUser.xml", type = DatabaseOperation.DELETE)
     void should_delete_user_if_exist() {
         //when
         userService.deleteUser(1);
         //then
-        //assert result is in above xml config
-    }
-
-    @Test
-    void should_delete_user_if_not_exist() {
-        Assertions.assertThrows(ResponseStatusException.class, () -> {
-            userService.deleteUser(10);
+        Assertions.assertThrows(CustomizeException.class, () -> {
+            wishService.getWishById(1);
+        });
+        Assertions.assertThrows(CustomizeException.class, () -> {
+            userService.getUserById(1);
         });
     }
+
 
     @Test
     @DatabaseSetup(value = "/dbunit/WishTest_AllWishesByUser.xml", type = DatabaseOperation.CLEAN_INSERT)

@@ -27,7 +27,10 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insertUser" parameterType="com.github.abigail830.mybatictest.infrastructure.entity.UserEntity" >
+    <insert id="insertUser"
+            parameterType="com.github.abigail830.mybatictest.infrastructure.entity.UserEntity"
+            useGeneratedKeys="true"
+            keyProperty="id">
         INSERT INTO
         user_tbl
         (user_name,gender,avatar_url)

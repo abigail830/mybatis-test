@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -56,7 +56,7 @@ class UserServiceTest {
         //given
         UserService userService = new UserService(userInfrastructure);
         final User expect = new User(1, "user1", "F", "url1");
-        when(userInfrastructure.getUserById(1)).thenReturn(expect);
+        when(userInfrastructure.getUserById(1)).thenReturn(Optional.of(expect));
 
         //when
         final User user1 = userService.getUserById(1);
@@ -78,23 +78,31 @@ class UserServiceTest {
     }
 
     @Test
-    void should_update_user() throws SQLIntegrityConstraintViolationException {
+    void should_update_user() {
         //given
-        UserService userService = new UserService(userInfrastructure);
+        final Integer resultRowCount = 1;
         final User user2 = new User(2, "user2", null, "url2");
+        when(userInfrastructure.updateUser(user2)).thenReturn(resultRowCount);
+        when(userInfrastructure.isSuccess(resultRowCount)).thenReturn(true);
+
+        UserService userService = new UserService(userInfrastructure);
+
         //when
         userService.updateUser(user2);
         //then
         //assert userInfrastructure is being called 1 times and with param user3
         verify(userInfrastructure, times(1)).updateUser(user2);
+        verify(userInfrastructure, times(1)).isSuccess(resultRowCount);
     }
 
     @Test
-    void should_throw_exception_when_update_user_not_exist() throws SQLIntegrityConstraintViolationException {
+    void should_throw_exception_when_update_user_not_exist() {
         //given
+        final Integer resultRowCount = 0;
         UserService userService = new UserService(userInfrastructure);
         final User user2 = new User(2, "user2", null, "url2");
-        doThrow(new SQLIntegrityConstraintViolationException()).when(userInfrastructure).updateUser(user2);
+        when(userInfrastructure.updateUser(user2)).thenReturn(resultRowCount);
+        when(userInfrastructure.isSuccess(resultRowCount)).thenReturn(false);
 
         Assertions.assertThrows(ResponseStatusException.class,()->{
             userService.updateUser(user2);
@@ -104,7 +112,7 @@ class UserServiceTest {
 
 
     @Test
-    void should_delete_user_exist() throws SQLIntegrityConstraintViolationException {
+    void should_delete_user_exist() {
         //when
         UserService userService = new UserService(userInfrastructure);
         userService.deleteUser(1);
@@ -112,14 +120,4 @@ class UserServiceTest {
         verify(userInfrastructure, times(1)).deleteUser(1);
     }
 
-    @Test
-    void should_throw_exception_when_delete_user__not_exist() throws SQLIntegrityConstraintViolationException {
-
-        UserService userService = new UserService(userInfrastructure);
-        doThrow(new SQLIntegrityConstraintViolationException()).when(userInfrastructure).deleteUser(1);
-
-        Assertions.assertThrows(ResponseStatusException.class,()->{
-            userService.deleteUser(1);
-        });
-    }
 }

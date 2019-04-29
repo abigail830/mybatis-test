@@ -5,23 +5,26 @@ import com.github.abigail830.mybatictest.domain.model.Wish;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface UserInfrastructure {
 
     List<User> getAll();
 
-    User getUserById(Integer id);
+    Optional<User> getUserById(Integer id);
 
     void insertUser(User user);
 
-    void updateUser(User user) throws SQLIntegrityConstraintViolationException;
+    Integer updateUser(User user);
 
-    void deleteUser(Integer id) throws SQLIntegrityConstraintViolationException;
+    Integer deleteUser(Integer id);
 
     List<Wish> getAllWishesByUser(Integer userId);
 
     void insertWish(Wish wish, Integer userId) throws SQLIntegrityConstraintViolationException;
 
-    void deleteAllWishesForUser(Integer userId) throws SQLIntegrityConstraintViolationException;
+    Integer deleteAllWishesForUser(Integer userId);
+
+    boolean isSuccess(Integer updatedRowCount);
 }
