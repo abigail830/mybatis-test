@@ -36,8 +36,6 @@
 
     <root level="INFO">
         <appender-ref ref="console"/>
-        <appender-ref ref="error"/>
-        <appender-ref ref="warn"/>
         <appender-ref ref="info"/>
     </root>
 

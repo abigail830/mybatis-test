@@ -8,6 +8,14 @@
 spring:
   datasource:
     url: jdbc:h2:mem:RealH2InUserd;DB_CLOSE_DELAY=-1;MODE=MYSQL
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

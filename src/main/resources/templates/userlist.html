@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBatis-Demo</title>
+    <link rel="stylesheet" href="../static/css/common.css">
+</head>
+<body>
+<div class="mid"><h1>User List</h1></div>
+
+<div>
+    <ol>
+        <li th:each="simpleUser : ${simpleUserList}" th:text="${simpleUser}">
+        </li>
+    </ol>
+
+
+</div>
+
+</body>
+</html>
