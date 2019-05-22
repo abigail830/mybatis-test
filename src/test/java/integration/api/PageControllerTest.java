@@ -41,8 +41,8 @@ class PageControllerTest extends IntegrationTestBase {
                 .andExpect(status().isOk())
                 .andExpect(view().name("userlist"))
                 .andExpect(model().attribute("simpleUserList", is(mockReturn)))
-                .andExpect(content().string(containsString("url1")));
-
+                .andExpect(content().string(containsString("<li>SimpleUserResponseDTO(id=1, userName=user1, gender=F, avatarUrl=url1)</li>")))
+                .andExpect(content().string(containsString("<li>SimpleUserResponseDTO(id=2, userName=user2, gender=M, avatarUrl=null)</li>")));
         MvcResult mvcResult = resultActions.andReturn();
         ModelAndView mv = mvcResult.getModelAndView();
 
