@@ -43,14 +43,14 @@ public class UserController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.CREATED)
     public void addUser(@RequestBody UserRequestDTO userRequestDTO){
         final User user = userRequestDTO.toUser();
         userService.addUser(user);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable Integer id,
                            @RequestBody UserRequestDTO userRequestDTO){
         final User user = userRequestDTO.toUser(id);
