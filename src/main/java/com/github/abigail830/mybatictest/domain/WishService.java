@@ -1,13 +1,14 @@
 package com.github.abigail830.mybatictest.domain;
 
-import com.github.abigail830.mybatictest.domain.exception.CustomizeException;
+import com.github.abigail830.mybatictest.domain.exception.BizException;
 import com.github.abigail830.mybatictest.domain.model.Wish;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.github.abigail830.mybatictest.domain.exception.ErrorCode.WISH_NOT_FOUND;
 
 @Service
 @Slf4j
@@ -26,6 +27,6 @@ public class WishService {
         if (wishById.isPresent())
             return wishById.get();
         else
-            throw new CustomizeException(HttpStatus.NOT_FOUND);
+            throw new BizException(WISH_NOT_FOUND);
     }
 }
