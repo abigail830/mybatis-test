@@ -9,11 +9,13 @@ public class BizException extends RuntimeException {
     private String message;
 
     public BizException(ErrorCode code, String message) {
+        super(message);
         this.code = code;
         this.message = message;
     }
 
     public BizException(ErrorCode code) {
+        super();
         this.code = code;
     }
 }
